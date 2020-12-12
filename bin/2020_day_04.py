@@ -25,18 +25,17 @@ def field_check(text, field_type):
         okay = True
     return okay
 
-
-if __name__ == '__main__':
+    
+   if __name__ == '__main__':
     datset = [i for i in Path('../input/input_2020_04.txt').read_text().split('\n\n')]
-    key = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid', 'cid']
     answer_1 = 0
     answer_2 = 0
     for passport in datset:
         fields = [i for i in passport.replace('\n', ' ').split(' ')]
-        check_1 = [0 for i in (range(0, len(key)))]
-        check_2 = [0 for i in (range(0, len(key)))]
+        check_1 = [0 for i in range(0, 8)]
+        check_2 = [0 for i in range(0, 8)]
         for f in fields:
-            field_type = key.index(f[0:3])
+            field_type = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid', 'cid'].index(f[0:3])
             check_1[field_type] = 1
             check_2[field_type] = int(field_check(f[4:], field_type))
         answer_1 += (sum(check_1[0:7]) == 7)
