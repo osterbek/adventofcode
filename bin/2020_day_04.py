@@ -1,9 +1,10 @@
 from pathlib import Path
+import re
 
 
-def field_check(text, type):
+def field_check(text, field_type):
     okay = True
-    if type == 0:
+    if field_type == 0:
         try:
             if (int(text) >= 1920) and (int(text) <= 2002):
                 okay = True
@@ -11,7 +12,7 @@ def field_check(text, type):
                 okay = False
         except ValueError:
             okay = False
-    elif type == 1:
+    elif field_type == 1:
         try:
             if (int(text) >= 2010) and (int(text) <= 2020):
                 okay = True
@@ -19,7 +20,7 @@ def field_check(text, type):
                 okay = False
         except ValueError:
             okay = False
-    elif type == 2:
+    elif field_type == 2:
         try:
             if (int(text) >= 2020) and (int(text) <= 2030):
                 okay = True
@@ -27,7 +28,7 @@ def field_check(text, type):
                 okay = False
         except ValueError:
             okay = False
-    elif type == 3:
+    elif field_type == 3:
         temp = text[-2:]
         if temp in ['cm', 'in']:
             try:
@@ -46,7 +47,7 @@ def field_check(text, type):
                 okay = False
         else:
             okay = False
-    elif type == 4:
+    elif field_type == 4:
         if (text[0] == '#') and (len(text) == 7):
             okay = True
             for i in range(1, 7):
@@ -56,12 +57,12 @@ def field_check(text, type):
                     okay = False
         else:
             okay = False
-    elif type == 5:
+    elif field_type == 5:
         if text in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']:
             okay = True
         else:
             okay = False
-    elif type == 6:
+    elif field_type == 6:
         if len(text) == 9:
             try:
                 temp = int(text)
@@ -70,42 +71,27 @@ def field_check(text, type):
                 okay = False
         else:
             okay = False
-    elif type == 7:
+    elif field_type == 7:
         okay = True
     return okay
 
 
 if __name__ == '__main__':
-    f = open('../input/input_2020_04.txt')
-    ds = []
-    for line in f.readlines():
-        ds.append(line)
-    f.close()
+    datset = [i for i in Path('../input/input_2020_04.txt').read_text().split('\n\n')]
     key = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid', 'cid']
-    passport = 0
-    pass_fields = [[False for i in (range(0, 8))]]
-    for i in range(0, len(ds)):
-        if len(ds[i]) == 1:
-            passport += 1
-            pass_fields.append([False for i in (range(0, 8))])
-        else:
-            for j in range(0, len(key)):
-                if ds[i].find(key[j]+':') >= 0:
-                    temp = ds[i][ds[i].find(key[j]+':')+4:]
-                    pass_fields[passport][j] = temp[:temp.find(' ')]
-    answer1 = 0
-    answer2 = 0
-    for i in range(0, passport+1):
-        okay1 = 1
-        okay2 = 1
-        for j in range(0, 7):
-            if not pass_fields[i][j]:
-                okay1 = 0
-                okay2 = 0
-            else:
-                if not field_check(pass_fields[i][j], j):
-                    okay2 = 0
-        answer1 += okay1
-        answer2 += okay2
-    print('Answer part 1 = {:d} '.format(answer1))
-    print('Answer part 2 = {:d} '.format(answer2))
+    answer_1 = 0
+    answer_2 = 0
+    for passport in datset:
+        fields = [i for i in passport.replace('\n', ' ').split(' ')]
+        check_1 = [0 for i in (range(0, len(key)))]
+        check_2 = [0 for i in (range(0, len(key)))]
+        for f in fields:
+            field_type = key.index(f[0:3])
+            check_1[field_type] = 1
+            if field_check(f[4:], field_type):
+                check_2[field_type] = 1
+        answer_1 += (sum(check_1[0:7]) == 7)
+        answer_2 += (sum(check_2[0:7]) == 7)
+    print('Answer part 1 = {:d} '.format(answer_1))
+    print('Answer part 2 = {:d} '.format(answer_2))
+    
