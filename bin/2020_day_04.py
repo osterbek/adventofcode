@@ -88,8 +88,7 @@ if __name__ == '__main__':
         for f in fields:
             field_type = key.index(f[0:3])
             check_1[field_type] = 1
-            if field_check(f[4:], field_type):
-                check_2[field_type] = 1
+            check_2[field_type] = int(field_check(f[4:], field_type))
         answer_1 += (sum(check_1[0:7]) == 7)
         answer_2 += (sum(check_2[0:7]) == 7)
     print('Answer part 1 = {:d} '.format(answer_1))
