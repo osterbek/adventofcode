@@ -35,7 +35,7 @@ if __name__ == '__main__':
     for x in range(0, len(rules)):
         for t in tickets:
             for y in range(0, len(t)):
-                if not (((t[y] >= rules[x][1]) and (t[y] <= rules[x][2])) or ((t[y] >= rules[x][3]) and (t[y] <= rules[x][4]))):
+                if ((t[y] < rules[x][1]) or (t[y] > rules[x][2])) and ((t[y] < rules[x][3]) or (t[y] > rules[x][4])):
                     p[y][x] = 0
     x = 0
     while sum([sum(i) for i in p]) > len(rules):
