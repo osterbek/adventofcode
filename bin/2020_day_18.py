@@ -25,19 +25,10 @@ def dissolve_parenthesis(term, part):
 
 
 def evaluate_expression(line, part):
-    sth_changed = True
-    while sth_changed:
-        i = 0
-        position = 0
-        sth_changed = False
-        while i < len(line):
-            if line[i] == '(':
-                position = i
-            if line[i] == ')':
-                line = line[:position] + str(dissolve_parenthesis(line[position + 1:i], part)) + line[i + 1:]
-                sth_changed = True
-                break
-            i += 1
+    while ')' in line:
+        b = line.index(')')
+        a = line[:b].rfind('(')
+        line = line[:a] + str(dissolve_parenthesis(line[a+1:b], part)) + line[b+1:]
     return dissolve_parenthesis(line, part)
 
 
@@ -50,3 +41,4 @@ if __name__ == '__main__':
         answer_2 += evaluate_expression(entry, 2)
     print('Answer part 1 = {:d} '.format(answer_1), answer_1 == 5374004645253)
     print('Answer part 2 = {:d} '.format(answer_2), answer_2 == 88782789402798)
+    
