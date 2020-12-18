@@ -3,24 +3,17 @@ from pathlib import Path
 
 def dissolve_parenthesis(term, part):
     term = term.split(' ')
-    for i in range(0, len(term)):
-        if (term[i] != '+') and (term[i] != '*'):
-            term[i] = int(term[i])
-    if part == 1:
-        result = int(term[0])
-        for i in range(1, len(term)-1, 2):
-            if term[i] == '+':
-                result += term[i+1]
-            else:
-                result *= term[i + 1]
-    else:
+    if part == 2:
         while '+' in term:
-            term[term.index('+') - 1] += term[term.index('+') + 1]
+            term[term.index('+') - 1] = int(term[term.index('+') - 1]) + int(term[term.index('+') + 1])
             del term[term.index('+') + 1]
             term.remove('+')
-        result = 1
-        for i in range(0, len(term), 2):
-            result *= term[i]
+    result = int(term[0])
+    for i in range(1, len(term)-1, 2):
+        if term[i] == '+':
+            result += int(term[i + 1])
+        else:
+            result *= int(term[i + 1])
     return result
 
 
