@@ -19,8 +19,9 @@ if __name__ == '__main__':
     for r in [i for i in dataset[0].split('\n')]:
         rules[int(r[:r.find(':')])] = r[r.find(':')+2:].replace('"', '')
     regex_1 = go_deep(0, 0)
+    print('Answer part 1 = {:d} '.format(sum([bool(re.fullmatch(regex_1, i)) for i in dataset[1].split('\n')])), 216)
     rules[8] = '42 | 42 8'
     rules[11] = '42 31 | 42 11 31'
     regex_2 = go_deep(0, 0)
-    print('Answer part 1 = {:d} '.format(sum([bool(re.fullmatch(regex_1, i)) for i in dataset[1].split('\n')])), 216)
     print('Answer part 2 = {:d} '.format(sum([bool(re.fullmatch(regex_2, i)) for i in dataset[1].split('\n')])), 400)
+    
