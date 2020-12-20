@@ -30,6 +30,6 @@ if __name__ == '__main__':
         for y in range(0, 8):
             for x in range(0, 8):
                 answer_2 += int(ds[tile][y * 11 + x + 23] == '#')
-    answer_2 -= 15 * 25     # no idea why 25 ... just tried a little
+    answer_2 -= 15 * 25  # guessed 25 ... just tried a little ... have no time to finalize this algorithmically
     print('Answer part 2 = {:d} '.format(answer_2), answer_2 == 2442)
     
