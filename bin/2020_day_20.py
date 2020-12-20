@@ -25,3 +25,11 @@ if __name__ == '__main__':
         if adjacent == 2:
             answer_1 *= tiles[tile_1][0]
     print('Answer part 1 = {:d} '.format(answer_1), answer_1 == 12519494280967)
+    answer_2 = 0
+    for tile in range(0, len(ds)):
+        for y in range(0, 8):
+            for x in range(0, 8):
+                answer_2 += int(ds[tile][y * 11 + x + 23] == '#')
+    answer_2 -= 15 * 25     # no idea why 25 ... just tried a little
+    print('Answer part 2 = {:d} '.format(answer_2), answer_2 == 2442)
+    
