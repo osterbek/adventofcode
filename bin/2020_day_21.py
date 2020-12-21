@@ -15,13 +15,8 @@ if __name__ == '__main__':
     for allergen in range(0, len(allergens)):
         ingredient_candidates = [f[0] for f in food if allergens[allergen] in f[1]]
         for i in ingredient_candidates[0]:
-            intersection = True
-            for j in ingredient_candidates[1:]:
-                if not (i in j):
-                    intersection = False
-            if intersection:
+            if min([(i in j) for j in ingredient_candidates[1:]]):
                 possib_ing_per_aller[allergen].append(i)
-    print(possib_ing_per_aller)
     something_changed = True
     while something_changed:
         something_changed = False
