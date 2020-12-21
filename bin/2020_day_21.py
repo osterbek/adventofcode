@@ -40,9 +40,7 @@ if __name__ == '__main__':
             if not (i in [p[0] for p in possible]):
                 answer_1 += 1
     print('Answer part 1 = {:d} '.format(answer_1), answer_1 == 2211)
-    canon_dang_ingr = []
-    for i in range(0, len(allergens)):
-        canon_dang_ingr.append([possible[i][0], allergens[i]])
+    canon_dang_ingr = [[possible[i][0], allergens[i]] for i in range(0, len(allergens))]
     for i in range(0, len(allergens) - 1):
         for j in range(0, len(allergens) - 1):
             if canon_dang_ingr[j][1] > canon_dang_ingr[j+1][1]:
