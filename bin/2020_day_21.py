@@ -2,13 +2,11 @@ from pathlib import Path
 
 if __name__ == '__main__':
     dataset = [i for i in Path('../input/input_2020_21.txt').read_text().split('\n')]
-    food, ingredients, allergens = [], [], []
-    for item in dataset:
-        ingre = item.split('(')[0][:-1].split(' ')
-        aller = item.split('(')[1][9:-1].split(', ')
-        food.append([ingre, aller])
-        ingredients.extend(ingre)
-        allergens.extend(aller)
+    ingredients, allergens = [], []
+    food = [[item.split('(')[0][:-1].split(' '), item.split('(')[1][9:-1].split(', ')] for item in dataset]
+    for f in food:
+        ingredients.extend(f[0])
+        allergens.extend(f[1])
     ingredients = list(set(ingredients))
     allergens = list(set(allergens))
     possib_ing_per_aller = [[] for i in allergens]
