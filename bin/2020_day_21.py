@@ -30,10 +30,9 @@ if __name__ == '__main__':
         for allergen in range(0, len(allergens)):
             if len(possible[allergen]) == 1:
                 for allergen_2 in range(0, len(allergens)):
-                    if allergen_2 != allergen:
-                        if possible[allergen][0] in possible[allergen_2]:
-                            possible[allergen_2].remove(possible[allergen][0])
-                            something_changed = True
+                    if allergen_2 != allergen and possible[allergen][0] in possible[allergen_2]:
+                        possible[allergen_2].remove(possible[allergen][0])
+                        something_changed = True
     canon_dang_ingr = [[possible[i][0], allergens[i]] for i in range(0, len(allergens))]
     for i in range(0, len(allergens) - 1):
         for j in range(0, len(allergens) - 1):
