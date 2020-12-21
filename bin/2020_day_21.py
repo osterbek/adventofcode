@@ -11,7 +11,7 @@ if __name__ == '__main__':
         allergens.extend(aller)
     ingredients = list(set(ingredients))
     allergens = list(set(allergens))
-    possible = [[] for i in allergens]
+    possib_ing_per_aller = [[] for i in allergens]
     for allergen in range(0, len(allergens)):
         ingredient_candidates = []
         for f in food:
@@ -23,24 +23,25 @@ if __name__ == '__main__':
                 if not (i in j):
                     intersection = False
             if intersection:
-                possible[allergen].append(i)
+                possib_ing_per_aller[allergen].append(i)
+    print(possib_ing_per_aller)
     something_changed = True
     while something_changed:
         something_changed = False
         for allergen in range(0, len(allergens)):
-            if len(possible[allergen]) == 1:
+            if len(possib_ing_per_aller[allergen]) == 1:
                 for allergen_2 in range(0, len(allergens)):
-                    if allergen_2 != allergen and possible[allergen][0] in possible[allergen_2]:
-                        possible[allergen_2].remove(possible[allergen][0])
+                    if allergen_2 != allergen and possib_ing_per_aller[allergen][0] in possib_ing_per_aller[allergen_2]:
+                        possib_ing_per_aller[allergen_2].remove(possib_ing_per_aller[allergen][0])
                         something_changed = True
-    canon_dang_ingr = [[possible[i][0], allergens[i]] for i in range(0, len(allergens))]
+    canon_dang_ingr = [[possib_ing_per_aller[i][0], allergens[i]] for i in range(0, len(allergens))]
     for i in range(0, len(allergens) - 1):
         for j in range(0, len(allergens) - 1):
             if canon_dang_ingr[j][1] > canon_dang_ingr[j+1][1]:
                 temp = canon_dang_ingr[j]
                 canon_dang_ingr[j] = canon_dang_ingr[j+1]
                 canon_dang_ingr[j+1] = temp
-    answer_1 = sum([sum([int(not (i in [p[0] for p in possible])) for i in f[0]]) for f in food])
+    answer_1 = sum([sum([int(not (i in [p[0] for p in possib_ing_per_aller])) for i in f[0]]) for f in food])
     answer_2 = str([i[0] for i in canon_dang_ingr]).replace(' ', '').replace('[', '').replace(']', '').replace('\'', '')
     print('Answer part 1 = {:d} '.format(answer_1), answer_1 == 2211)
     print('Answer part 2 = ' + answer_2 + ' ' + str(answer_2 == 'vv,nlxsmb,rnbhjk,bvnkk,ttxvphb,qmkz,trmzkcfg,jpvz'))
