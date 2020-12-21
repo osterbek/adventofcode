@@ -13,10 +13,7 @@ if __name__ == '__main__':
     allergens = list(set(allergens))
     possib_ing_per_aller = [[] for i in allergens]
     for allergen in range(0, len(allergens)):
-        ingredient_candidates = []
-        for f in food:
-            if allergens[allergen] in f[1]:
-                ingredient_candidates.append(f[0])
+        ingredient_candidates = [f[0] for f in food if allergens[allergen] in f[1]]
         for i in ingredient_candidates[0]:
             intersection = True
             for j in ingredient_candidates[1:]:
