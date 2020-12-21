@@ -34,12 +34,6 @@ if __name__ == '__main__':
                         if possible[allergen][0] in possible[allergen_2]:
                             possible[allergen_2].remove(possible[allergen][0])
                             something_changed = True
-    answer_1 = 0
-    for f in food:
-        for i in f[0]:
-            if not (i in [p[0] for p in possible]):
-                answer_1 += 1
-    print('Answer part 1 = {:d} '.format(answer_1), answer_1 == 2211)
     canon_dang_ingr = [[possible[i][0], allergens[i]] for i in range(0, len(allergens))]
     for i in range(0, len(allergens) - 1):
         for j in range(0, len(allergens) - 1):
@@ -47,6 +41,7 @@ if __name__ == '__main__':
                 temp = canon_dang_ingr[j]
                 canon_dang_ingr[j] = canon_dang_ingr[j+1]
                 canon_dang_ingr[j+1] = temp
+    answer_1 = sum([sum([int(not (i in [p[0] for p in possible])) for i in f[0]]) for f in food])
     answer_2 = str([i[0] for i in canon_dang_ingr]).replace(' ', '').replace('[', '').replace(']', '').replace('\'', '')
+    print('Answer part 1 = {:d} '.format(answer_1), answer_1 == 2211)
     print('Answer part 2 = ' + answer_2 + ' ' + str(answer_2 == 'vv,nlxsmb,rnbhjk,bvnkk,ttxvphb,qmkz,trmzkcfg,jpvz'))
-    
