@@ -14,9 +14,9 @@ if __name__ == '__main__':
     possib_ing_per_aller = [[] for i in allergens]
     for allergen in range(0, len(allergens)):
         ingredient_candidates = [f[0] for f in food if allergens[allergen] in f[1]]
-        for i in ingredient_candidates[0]:
-            if min([(i in j) for j in ingredient_candidates[1:]]):
-                possib_ing_per_aller[allergen].append(i)
+        for ing_1 in ingredient_candidates[0]:
+            if min([(ing_1 in ing_2) for ing_2 in ingredient_candidates[1:]]):
+                possib_ing_per_aller[allergen].append(ing_1)
     something_changed = True
     while something_changed:
         something_changed = False
