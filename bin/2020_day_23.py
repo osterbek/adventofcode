@@ -8,7 +8,6 @@ def initial_setup(dataset):
 
 
 def execute_moves(successors, current, count):
-    key_count = max(successors.keys())
     for r in range(0, count):
         pick_up_1 = successors.get(current)
         pick_up_2 = successors.get(pick_up_1)
@@ -17,7 +16,7 @@ def execute_moves(successors, current, count):
         while (destination in [pick_up_1, pick_up_2, pick_up_3]) or (destination <= 0):
             destination -= 1
             if destination <= 0:
-                destination = key_count
+                destination = max(successors.keys())
         successors[current] = successors.get(pick_up_3)
         successors[pick_up_3] = successors.get(destination)
         successors[destination] = pick_up_1
