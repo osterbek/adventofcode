@@ -1,8 +1,5 @@
-from pathlib import Path
-
-
 if __name__ == '__main__':
-    cups = [int(i) for i in Path('../input/input_2020_23.txt').read_text()]
+    cups = [int(i) for i in '614752839']
     for r in range(0, 100):
         pick_up = cups[1:4].copy()
         destination = cups[0] - 1
