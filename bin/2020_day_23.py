@@ -8,6 +8,7 @@ def initial_setup(dataset):
 
 
 def execute_moves(successors, current, count):
+    key_count = max(successors.keys())
     for r in range(0, count):
         pick_up_1 = successors.get(current)
         pick_up_2 = successors.get(pick_up_1)
@@ -27,11 +28,10 @@ def execute_moves(successors, current, count):
 if __name__ == '__main__':
     dataset = '614752839'
     [successors_part_1, current_part_1] = initial_setup(dataset)
-    key_count = max(successors_part_1.keys())
     successors_part_1 = execute_moves(successors_part_1, current_part_1, 100)
     answer_1 = ''
     ptr = successors_part_1.get(1)
-    for i in range(0, key_count - 1):
+    for i in range(0, max(successors_part_1.keys()) - 1):
         answer_1 += str(ptr)
         ptr = successors_part_1.get(ptr)
     print('Answer part 1 = {:d} '.format(int(answer_1)), int(answer_1) == 89372645)
@@ -41,7 +41,6 @@ if __name__ == '__main__':
         successors_part_2[i] = i + 1
     successors_part_2[1000000] = successors_part_2[key_count]
     successors_part_2[key_count] = key_count + 1
-    key_count = max(successors_part_2.keys())
     successors_part_2 = execute_moves(successors_part_2, current_part_2, 10000000)
     answer_2 = successors_part_2.get(1) * successors_part_2.get(successors_part_2.get(1))
     print('Answer part 2 = {:d} '.format(answer_2), answer_2 == 21273394210)
