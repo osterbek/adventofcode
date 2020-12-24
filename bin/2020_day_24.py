@@ -28,8 +28,7 @@ if __name__ == '__main__':
             del floor[(position[0], position[1])]
         else:
             floor[(position[0], position[1])] = 1
-    answer_1 = sum([floor[i] for i in floor.keys()])
-    print('Answer part 1 = {:d} '.format(answer_1), answer_1 == 512)
+    print('Answer part 1 = {:d} '.format(len(floor.keys())), len(floor.keys()) == 512)
     for day in range(0, 100):
         shadow = floor.copy()
         for tile_1 in floor.keys():
@@ -48,5 +47,5 @@ if __name__ == '__main__':
                     if neighbours_counter == 2:
                         shadow[tile_2] = 1
         floor = shadow.copy()
-        print(day, sum([floor[i] for i in floor.keys()]))
-    print('Answer part 2 = {:d} '.format(sum([floor[i] for i in floor.keys()])), sum([floor[i] for i in floor.keys()]) == 4120)
+        print(day, len(floor.keys()))
+    print('Answer part 2 = {:d} '.format(len(floor.keys())), len(floor.keys()) == 4120)
