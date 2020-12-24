@@ -33,7 +33,7 @@ if __name__ == '__main__':
             position[0] += orientation[1][orientation[0].index(way)][0]
             position[1] += orientation[1][orientation[0].index(way)][1]
         if (position[0], position[1]) in floor.keys():
-            floor[(position[0], position[1])] = 0
+            del floor[(position[0], position[1])]
         else:
             floor[(position[0], position[1])] = 1
     answer_1 = sum([floor[i] for i in floor.keys()])
@@ -43,30 +43,21 @@ if __name__ == '__main__':
     for day in range(0, 100):
         shadow = floor.copy()
         for tile_1 in floor.keys():
-            if floor.get(tile_1) == 1:
-                neighbours_counter = 0
-                for tile_2 in floor.keys():
-                    if floor.get(tile_2) == 1:
-                        if tile_2 in neighbours(tile_1):
+            neighbours_counter = 0
+            for tile_2 in floor.keys():
+                if tile_2 in neighbours(tile_1):
+                    neighbours_counter += 1
+            if neighbours_counter > 2 or neighbours_counter == 0:
+                del shadow[tile_1]
+            for tile_2 in neighbours(tile_1):
+                if tile_2 not in floor.keys():
+                    neighbours_counter = 0
+                    for tile_3 in neighbours(tile_2):
+                        if tile_3 in floor.keys():
                             neighbours_counter += 1
-                if neighbours_counter > 2 or neighbours_counter == 0:
-                    shadow[tile_1] = 0
-                for tile_2 in neighbours(tile_1):
-                    white = False
-                    if tile_2 not in floor.keys():
-                        white = True
-                    else:
-                        if floor.get(tile_2) == 0:
-                            white = True
-                    if white:
-                        neighbours_counter = 0
-                        for tile_3 in neighbours(tile_2):
-                            if tile_3 in floor.keys():
-                                if floor.get(tile_3) == 1:
-                                    neighbours_counter += 1
-                        if neighbours_counter == 2:
-                            shadow[tile_2] = 1
+                    if neighbours_counter == 2:
+                        shadow[tile_2] = 1
         floor = shadow.copy()
-        print(day, sum([floor[i] for i in floor.keys()]))
+        print(day, sum([floor[i] for i in floor.keys()]), len(floor.keys()))
         #show_floor(floor)
     print('Answer part 2 = {:d} '.format(sum([floor[i] for i in floor.keys()])))
