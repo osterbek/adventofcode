@@ -10,13 +10,6 @@ def neighbours(a):
     return answer
 
 
-def show_floor(f):
-    for i in f.keys():
-        if f[i] == 1:
-            print(i, end=' ')
-    print()
-
-
 if __name__ == '__main__':
     dataset = [i for i in Path('../input/input_2020_24.txt').read_text().split('\n')]
     floor = {}
@@ -39,7 +32,6 @@ if __name__ == '__main__':
     answer_1 = sum([floor[i] for i in floor.keys()])
     print('Answer part 1 = {:d} '.format(answer_1), answer_1 == 512)
 
-    show_floor(floor)
     for day in range(0, 100):
         shadow = floor.copy()
         for tile_1 in floor.keys():
@@ -58,6 +50,5 @@ if __name__ == '__main__':
                     if neighbours_counter == 2:
                         shadow[tile_2] = 1
         floor = shadow.copy()
-        print(day, sum([floor[i] for i in floor.keys()]), len(floor.keys()))
-        #show_floor(floor)
+        print(day, sum([floor[i] for i in floor.keys()]))
     print('Answer part 2 = {:d} '.format(sum([floor[i] for i in floor.keys()])))
