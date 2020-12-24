@@ -29,16 +29,14 @@ if __name__ == '__main__':
         for tile_1 in floor.keys():
             neighbours_counter = 0
             for tile_2 in floor.keys():
-                if tile_2 in neighbours(tile_1):
-                    neighbours_counter += 1
+                neighbours_counter += (tile_2 in neighbours(tile_1))
             if neighbours_counter > 2 or neighbours_counter == 0:
                 del shadow[tile_1]
             for tile_2 in neighbours(tile_1):
                 if tile_2 not in floor.keys():
                     neighbours_counter = 0
                     for tile_3 in neighbours(tile_2):
-                        if tile_3 in floor.keys():
-                            neighbours_counter += 1
+                        neighbours_counter += (tile_3 in floor.keys())
                     if neighbours_counter == 2:
                         shadow[tile_2] = True
         floor = shadow.copy()
