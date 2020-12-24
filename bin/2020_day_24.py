@@ -1,7 +1,5 @@
 from pathlib import Path
 
-orientation = [['e', 'se', 'sw', 'w', 'nw', 'ne'], [[2, 0], [1, 1], [-1, 1], [-2, 0], [-1, -1], [1, -1]]]
-
 
 def neighbours(a):
     answer = []
@@ -12,6 +10,7 @@ def neighbours(a):
 
 if __name__ == '__main__':
     dataset = [i for i in Path('../input/input_2020_24.txt').read_text().split('\n')]
+    orientation = [['e', 'se', 'sw', 'w', 'nw', 'ne'], [[2, 0], [1, 1], [-1, 1], [-2, 0], [-1, -1], [1, -1]]]
     floor = {}
     for tile in range(0, len(dataset)):
         position = [0, 0]
@@ -31,7 +30,6 @@ if __name__ == '__main__':
             floor[(position[0], position[1])] = 1
     answer_1 = sum([floor[i] for i in floor.keys()])
     print('Answer part 1 = {:d} '.format(answer_1), answer_1 == 512)
-
     for day in range(0, 100):
         shadow = floor.copy()
         for tile_1 in floor.keys():
@@ -51,4 +49,4 @@ if __name__ == '__main__':
                         shadow[tile_2] = 1
         floor = shadow.copy()
         print(day, sum([floor[i] for i in floor.keys()]))
-    print('Answer part 2 = {:d} '.format(sum([floor[i] for i in floor.keys()])))
+    print('Answer part 2 = {:d} '.format(sum([floor[i] for i in floor.keys()])), sum([floor[i] for i in floor.keys()]) == 4120)
